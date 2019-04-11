@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 
+def Loasding
+
 class PensionData:
     def __init__(self):
         self.baseURL = "https://www.nestpensions.org.uk/schemeweb/dam/nestlibrary/"
@@ -24,7 +26,7 @@ class PensionData:
         results = LinkMonthYearRE.findall(text)
 
         os.system("mkdir data")
-        
+
         self.links = []
         self.months = []
         self.years = []
@@ -69,8 +71,8 @@ class PensionData:
                         new = df
                     else:
                         new = pd.merge(new, df, how='outer')#.fillna(1)
-                except:
-                    print("Failed on :", self.months[i],":", self.years[i])
+                except Exception as e:
+                    print("Failed on :", self.months[i],":", self.years[i]," With:",e)
 
             print(new.head())
             new.set_index("Name",inplace=True)
