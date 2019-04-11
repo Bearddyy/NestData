@@ -14,16 +14,15 @@ class PensionData:
         self.baseURL = "https://www.nestpensions.org.uk/schemeweb/dam/nestlibrary/"
         self.months = ["January", "February", "March", "April", "May", "June", "July"]
         self.monthLUT = {}
+        os.system("mkdir data")
 
-    def getDATA(self):
+    def getData(self):
         html = urllib.request.urlopen("https://www.nestpensions.org.uk/schemeweb/nest/aboutnest/investment-approach/other-fund-choices/fund-factsheets.html")
         text = html.read().decode("utf-8")
 
         LinkMonthYearRE = re.compile(r"href=\"(.*\.pdf)\".*prices\ ([a-zA-Z]*?)\ ([0-9]*?)\ *\(")
 
         results = LinkMonthYearRE.findall(text)
-
-        os.system("mkdir data")
 
         self.links = []
         self.months = []
@@ -38,16 +37,16 @@ class PensionData:
             self.months.append(dt.month)
             self.years.append(each[2].lower())
 
-        for i, link in enumerate(self.links):
-            urllib.request.urlretrieve(link, "data/{0}-{1}.pdf".format(self.months[i],self.years[i]))
-            print("Downloaded ", i, " @ ", self.months[i], ":", self.years[i], " From:", link)
-
     def loadData(self):
         import datetime
         try:
             new = pd.read_pickle("new.pk")
             print("Data Loaded")
         except:
+            for i, link in enumerate(self.links):
+                urllib.request.urlretrieve(link, "data/{0}-{1}.pdf".format(self.months[i],self.years[i]))
+                print("Downloaded ", i, " @ ", self.months[i], ":", self.years[i], " From:", link)
+
             for i,_ in enumerate(self.links):
                 try:
                     print("Reading ", self.years[i],":",self.months[i])
@@ -103,5 +102,5 @@ class PensionData:
 
 if __name__ == "__main__":
     x = PensionData()
-    x.getDATA()
+    x.getData()
     x.loadData()
