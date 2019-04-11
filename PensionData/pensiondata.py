@@ -22,6 +22,9 @@ class PensionData:
         LinkMonthYearRE = re.compile(r"href=\"(.*\.pdf)\".*prices\ ([a-zA-Z]*?)\ ([0-9]*?)\ *\(")
 
         results = LinkMonthYearRE.findall(text)
+
+        os.system("mkdir data")
+        
         self.links = []
         self.months = []
         self.years = []
@@ -36,7 +39,6 @@ class PensionData:
             self.years.append(each[2].lower())
 
         for i, link in enumerate(self.links):
-            os.system("mkdir data")
             urllib.request.urlretrieve(link, "data/{0}-{1}.pdf".format(self.months[i],self.years[i]))
             print("Downloaded ", i, " @ ", self.months[i], ":", self.years[i], " From:", link)
 
