@@ -23,7 +23,7 @@ loader = loading()
 
 
 while True:
-    time.sleep(1)#60*10)
+    time.sleep(60*10)
     loader.loading()
     try:
         a.getData()
