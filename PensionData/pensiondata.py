@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 import pickle
 import os
 
-def Loasding
-
 class PensionData:
     def __init__(self):
         self.baseURL = "https://www.nestpensions.org.uk/schemeweb/dam/nestlibrary/"
@@ -59,7 +57,7 @@ class PensionData:
                         if"Fund" in row.to_string():
                             break
                     df.columns = df.iloc[index+1]
-                    df = df[-8:]
+                    df = df[-8:] #The last 8 rows of the table contain the interesting funds
                     newnames = ["Name"]
                     newnames.extend(df.columns[1:])
                     df.columns = newnames
