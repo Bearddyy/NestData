@@ -3,7 +3,6 @@ import re
 from datetime import datetime
 import time
 import numpy as np
-import tabula
 import pandas as pd
 import matplotlib.pyplot as plt
 import pickle
@@ -47,6 +46,8 @@ class PensionData:
                 urllib.request.urlretrieve(link, "data/{0}-{1}.pdf".format(self.months[i],self.years[i]))
                 print("Downloaded ", i, " @ ", self.months[i], ":", self.years[i], " From:", link)
 
+
+            import tabula
             for i,_ in enumerate(self.links):
                 try:
                     print("Reading ", self.years[i],":",self.months[i])
@@ -97,6 +98,8 @@ class PensionData:
         plt.xticks(rotation = 45)
         plt.legend()
         plt.show()
+
+        new.to_csv("Results.csv")
 
 
 
