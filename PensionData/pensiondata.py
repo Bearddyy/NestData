@@ -97,7 +97,8 @@ class PensionData:
             plt.plot(new.columns, x, label=index)
         plt.xticks(rotation = 45)
         plt.legend()
-        plt.show()
+        #plt.show()
+        plt.savefig("Current_Data.png")
 
         new.to_csv("Results.csv")
 

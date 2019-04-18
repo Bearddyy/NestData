@@ -18,6 +18,12 @@ a = PensionData()
 a.getData()
 links = a.links.copy()
 
+a.loadData()
+with open("Current_Data.png") as f:
+    lastest_file = pb.upload_file(f, "LatestNestData.png")
+
+pb.push_file(**lastest_file)
+
 loader = loading()
 
 pb = Pushbullet("")
@@ -32,6 +38,12 @@ while True:
             print("New PDFs Found")
             links = a.links.copy()
             pb.push_note("New Nest Data")
+            try:
+                a.loadData()
+                with open("Current_Data.png") as f:
+                    lastest_file = pb.upload_file(f, "LatestNestData.png")
+                
+                pb.push_file(**lastest_file)
     except:
         print("Failed")
         try:
