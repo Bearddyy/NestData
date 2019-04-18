@@ -17,21 +17,18 @@ class loading():
 a = PensionData()
 a.getData()
 links = a.links.copy()
-a.loadData()
 
 loader = loading()
 
 
 while True:
-    time.sleep(60*10)
     loader.loading()
+    time.sleep(60*10)
     try:
         a.getData()
         if links != a.links:
             print("New PDFs Found")
-            os.system("cp new.pk old.pk")
-            os.system("rm new.pk")
-            a.loadData()
             links = a.links.copy()
-    except expression as identifier:
+            
+    except:
         pass
