@@ -44,6 +44,8 @@ while True:
                     lastest_file = pb.upload_file(f, "LatestNestData.png")
                 
                 pb.push_file(**lastest_file)
+            except:
+                pass
     except:
         print("Failed")
         try:
