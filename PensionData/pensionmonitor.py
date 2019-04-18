@@ -1,6 +1,6 @@
 from pensiondata import PensionData
-import os
 import time
+from pushbullet import Pushbullet
 
 class loading():
     def __init__(self):
@@ -20,15 +20,23 @@ links = a.links.copy()
 
 loader = loading()
 
+pb = Pushbullet("")
+pb.push_note("ONLINE", "Nest Pension Monitor Online.")
 
 while True:
     loader.loading()
-    time.sleep(60*10)
+    time.sleep(60)
     try:
         a.getData()
         if links != a.links:
             print("New PDFs Found")
             links = a.links.copy()
-            
+            pb.push_note("New Nest Data")
     except:
-        pass
+        print("Failed")
+        try:
+            pb.push_note("Nest Script Crashed","")
+        except:
+            pass
+
+pb.push_note("Nest Script Crashed","")
