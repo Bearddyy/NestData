@@ -14,20 +14,32 @@ class loading():
         self.i += 1
 
 
+print("Pension Monitor - Running")
 a = PensionData()
 a.getData()
 links = a.links.copy()
 
+print("Pension Monitor - Fetched Links")
+
 a.loadData()
+
+print("Pension Monitor - Data Loaded")
+
+print("Pension Monitor - Sending Data")
+
 with open("Current_Data.png") as f:
     lastest_file = pb.upload_file(f, "LatestNestData.png")
 
 pb.push_file(**lastest_file)
 
+print("Pension Monitor - Data Sent")
+
 loader = loading()
 
 pb = Pushbullet("")
 pb.push_note("ONLINE", "Nest Pension Monitor Online.")
+
+print("Pension Monitor - Monitoring")
 
 while True:
     loader.loading()
